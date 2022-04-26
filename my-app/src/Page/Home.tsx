@@ -14,7 +14,7 @@ import {
   filterStatus,
   showDetail,
   toggleShowModalAvatar,
-  toggleShowModalConfirm,
+  toggleShowModalConfirmForDelete,
   toggleShowModalCreate,
 } from "../redux/features/system";
 import { RootState } from "../redux/store";
@@ -25,7 +25,7 @@ const Home = () => {
   const dispatch = useDispatch();
   const { product } = useSelector((state: RootState) => state.product);
   const { DataResponse } = useSelector((state: RootState) => state.systemLogin);
-  const { ModalAvatar, ModalCreate, ShowDetail, ModalConfirmStatus, filter  } = useSelector(
+  const { ModalAvatar, ModalCreate, ShowDetail, ModalConfirmStatusForDelete, filter  } = useSelector(
     (state: RootState) => state.system
   );
 
@@ -57,7 +57,8 @@ const Home = () => {
 
   const deleteButton = (id: string) => {
     setIdState(id);
-    dispatch(toggleShowModalConfirm());
+    dispatch(toggleShowModalConfirmForDelete());
+    console.log(ModalConfirmStatusForDelete);
   };
 
   const showModalCreateButton = () => {
@@ -279,7 +280,7 @@ const Home = () => {
       {ShowDetail ? 
         <ModalDetail /> 
       : <div className="w3-animate-opacity"></div>}
-      {ModalConfirmStatus && idState ? (
+      {ModalConfirmStatusForDelete && idState ? (
         <ModalConfirm title="xóa" id={idState} x={2} />
       ) : (
         ""

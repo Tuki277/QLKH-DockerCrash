@@ -6,6 +6,7 @@ export interface ISystem {
     ShowDetail: boolean;
     Id: string;
     ModalConfirmStatus: boolean;
+    ModalConfirmStatusForDelete: boolean;
     filter: any
 }
 
@@ -15,6 +16,7 @@ const initialState: ISystem = {
     ShowDetail: false,
     Id: "",
     ModalConfirmStatus: false,
+    ModalConfirmStatusForDelete: false,
     filter: "All"
 }
 
@@ -31,6 +33,9 @@ const systemSlice = createSlice({
         toggleShowModalConfirm(state) {
             state.ModalConfirmStatus = !state.ModalConfirmStatus
         },
+        toggleShowModalConfirmForDelete(state) {
+            state.ModalConfirmStatusForDelete = !state.ModalConfirmStatusForDelete
+        },
         closeModalCreate(state) {
             state.ModalCreate = false
         },
@@ -42,6 +47,10 @@ const systemSlice = createSlice({
             state.ShowDetail = false;
         },
         closeModalConfirm (state) {
+            state.ModalConfirmStatus = false;
+            state.ModalConfirmStatusForDelete = false;
+        },
+        closeModalConfirmForDelete (state) {
             state.ModalConfirmStatus = false;
         },
         filterStatus(state, action: any) {
@@ -61,6 +70,7 @@ export const {
     showDetail,
     closeDetail,
     toggleShowModalConfirm,
+    toggleShowModalConfirmForDelete,
     closeModalConfirm,
     filterStatus,
 } = systemSlice.actions

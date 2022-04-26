@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { IProductDocumentPost, IProductDocumentUpdate } from "../interface";
 import {
@@ -14,6 +14,7 @@ import {
 } from "../redux/features/product";
 import { closeModalConfirm, closeModalCreate } from "../redux/features/system";
 import { RootState } from "../redux/store";
+import { processTitle } from "../Utils/Function"
 
 export interface IProps {
   x: number
@@ -23,6 +24,9 @@ export interface IProps {
 }
 
 const ModalConfirm = (props: IProps) => {
+  const title = processTitle(props.x, props.id)
+  console.log("🚀 ~ file: ModalConfirm.tsx ~ line 28 ~ ModalConfirm ~ title", title)
+
 
   const dispatch = useDispatch();
 
@@ -119,7 +123,7 @@ const ModalConfirm = (props: IProps) => {
           <div className="w-[34rem] h-full mx-40 my-[40vh] bg-white border-2 border-gray-400 p-7 rounded-md">
             <div className="flex justify-between">
               <p className="text-2xl w-full text-center">
-                Bạn có chắc chắn muốn <span className="font-semibold"> { props.title } </span> sản phẩm này?
+                Bạn có chắc chắn muốn <span className="font-semibold"> { title } </span>bưu phẩm này?
               </p>
             </div>
 
@@ -144,3 +148,7 @@ const ModalConfirm = (props: IProps) => {
 };
 
 export default ModalConfirm;
+function closeModalConfirmForDelete(): any {
+  throw new Error("Function not implemented.");
+}
+

@@ -15,6 +15,7 @@ import {
 import { closeModalConfirm, closeModalCreate } from "../redux/features/system";
 import { RootState } from "../redux/store";
 import { processTitle } from "../Utils/Function"
+import { actionStatus } from "../Utils/staticVariable";
 
 export interface IProps {
   x: number
@@ -43,74 +44,71 @@ const ModalConfirm = (props: IProps) => {
   };
 
   const submitForm = async () => {
-    if (props.x === 1) {
-      if (props.model) {
-        if (props.id === "") {
-          const result: any = await dispatch(addProduct(props.model));
-          if (!result.payload.DataResponse.Error) {
-            alert('Thêm mới thành công');
-            await dispatch(getAllProduct())
-            dispatch(closeModalConfirm());
-            dispatch(closeModalCreate());
+
+    switch (props.x) {
+      case 1:
+        if (props.model) {
+          if (props.id === "") {
+            const result: any = await dispatch(addProduct(props.model));
+            if (!result.payload.DataResponse.Error) {
+              alert(actionStatus.Add);
+              await dispatch(getAllProduct())
+              dispatch(closeModalConfirm());
+              dispatch(closeModalCreate());
+            } else {
+              alert(result.payload.DataResponse.Message)
+              dispatch(closeModalConfirm());
+            }
           } else {
-            alert(result.payload.DataResponse.Message)
-            dispatch(closeModalConfirm());
-          }
-        } else {
-          const modelUpdate: IProductDocumentUpdate<IProductDocumentPost> = {
-            model: props.model,
-            id: props.id
-          }
-          const result: any = await dispatch(updateProduct(modelUpdate));
-          if (!result.payload.DataResponse.Error) {
-            alert('Cập nhật thành công');
-            await dispatch(getAllProduct())
-            dispatch(closeModalConfirm());
-            dispatch(closeModalCreate());
-          } else {
-            alert(result.payload.sDataResponse.Message)
-            dispatch(closeModalConfirm());
+            const modelUpdate: IProductDocumentUpdate<IProductDocumentPost> = {
+              model: props.model,
+              id: props.id
+            }
+            const result: any = await dispatch(updateProduct(modelUpdate));
+            if (!result.payload.DataResponse.Error) {
+              alert(actionStatus.Update);
+              await dispatch(getAllProduct())
+              dispatch(closeModalConfirm());
+              dispatch(closeModalCreate());
+            } else {
+              alert(result.payload.sDataResponse.Message)
+              dispatch(closeModalConfirm());
+            }
           }
         }
-        
-      }
-    }
-
-    if (props.x === 2) {
-      if (props.id) {
-        await dispatch(deleteProduct(props.id));
-        alert("Xóa thành công");
-        dispatch(closeModalConfirm());
-        dispatch(getAllProduct());
-      }
-    }
-
-    if (props.x === 3) {
-      if (props.id) {
-        await dispatch(deliveredProduct(props.id));
-        alert("Nhận chuyển hàng thành công");
-        dispatch(closeModalConfirm());
-        dispatch(getProductById(props.id));
-      }
-    }
-
-    if (props.x === 4) {
-      if (props.id) {
-        await dispatch(finishProduct(props.id));
-        alert("Giao hàng thành công");
-        dispatch(closeModalConfirm());
-        dispatch(getProductById(props.id));
-      }
-    }
-
-    if(props.x === 5) {
-      if (props.id) {
-        await dispatch(rejectProduct(props.id));
-        alert("Giao hàng thất bại");
-        dispatch(closeModalConfirm());
-        dispatch(getProductById(props.id));
-      }
-      
+        break;
+      case 2:
+        if (props.id) {
+          await dispatch(deleteProduct(props.id));
+          alert(actionStatus.Delete);
+          dispatch(closeModalConfirm());
+          dispatch(getAllProduct());
+        }
+        break;
+      case 3:
+        if (props.id) {
+          await dispatch(deliveredProduct(props.id));
+          alert(actionStatus.Delivered);
+          dispatch(closeModalConfirm());
+          dispatch(getProductById(props.id));
+        }
+        break;
+      case 4:
+        if (props.id) {
+          await dispatch(finishProduct(props.id));
+          alert(actionStatus.Finish);
+          dispatch(closeModalConfirm());
+          dispatch(getProductById(props.id));
+        }
+        break;
+      case 5:
+        if (props.id) {
+          await dispatch(rejectProduct(props.id));
+          alert(actionStatus.Rejected);
+          dispatch(closeModalConfirm());
+          dispatch(getProductById(props.id));
+        }
+        break;
     }
   }
 

@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { ILogin, IResponse, IResponseJson, ISystemLogin, UserDocument } from "../../interface";
 import API, { APINonAuth } from "../../Utils/API";
+import { actionStatus } from "../../Utils/staticVariable";
 
 export const login = createAsyncThunk("SystemLogin/Login", async(item: ILogin) => {
     const res = await APINonAuth.post<IResponseJson<IResponse<UserDocument>>>('/login', item)
@@ -35,7 +36,7 @@ const loginSystem = createSlice({
             if (state.accessToken) {
                 localStorage.setItem("accessToken", state.accessToken)
             } else {
-                alert("Đăng nhập thất bại")
+                alert(actionStatus.LoginFail)
             }
             state.loggedIn = true;
         })

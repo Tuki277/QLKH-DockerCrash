@@ -5,6 +5,7 @@ import { closeDetail, toggleShowModalConfirm } from "../redux/features/system";
 import { RootState } from "../redux/store";
 import { formatDateTime, processStatus } from "../Utils/Function";
 import ModalConfirm from "./ModalConfirm";
+import { actionNumber, actionTitle } from "../Utils/staticVariable";
 
 const ModalDetail = () => {
   const dispatch = useDispatch();
@@ -30,27 +31,26 @@ const ModalDetail = () => {
     } else {
       dispatch(getAllProduct());
     }
-    
   };
 
   const finishProductButton = async (id: string) => {
-    setX(4);
+    setX(actionNumber.Finish);
     setIdState(id);
-    setTitle("xác nhận vận chuyển thành công");
+    setTitle(actionTitle.Finish);
     dispatch(toggleShowModalConfirm());
   };
 
   const rejectProductButton = async (id: string) => {
-    setX(5);
+    setX(actionNumber.Rejected);
     setIdState(id);
-    setTitle("xác nhận vận chuyển không thành công");
+    setTitle(actionTitle.Rejected);
     dispatch(toggleShowModalConfirm());
   };
 
   const deliveredProductButton = async (id: string) => {
-    setX(3);
+    setX(actionNumber.Delivered);
     setIdState(id);
-    setTitle("nhận vận chuyển");
+    setTitle(actionTitle.Delivered);
     dispatch(toggleShowModalConfirm());
   };
 
@@ -68,7 +68,6 @@ const ModalDetail = () => {
           <div className="w-[50rem] h-full mx-40 bg-white border-2 border-gray-400 p-4 rounded-md">
             <div className="flex justify-between">
               <p className="text-3xl w-full text-center">
-                {/* {data[0].NameProduct} - {data[0].UserReceive}  */}
                 Thông tin bưu phẩm: {data[0].NameProduct}
               </p>
             </div>
@@ -169,18 +168,6 @@ const ModalDetail = () => {
                 </p>
               </div>
             </div>
-
-            {/* <div className="ml-">
-              {data[0].Note ? (
-                <p className="mt-2">
-                  <span className="font-semibold mr-2">Ghi chú:</span>
-                  {data[0].Note}
-                </p>
-              ) : (
-                ""
-              )}
-            </div> */}
-
             <div className="w-full text-center mt-10">
               <button
                 className="border-[1px] rounded-md p-2 ml-2 hover:bg-gray-200"

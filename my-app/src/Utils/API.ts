@@ -12,7 +12,7 @@ const API = axios.create({
 })
 
 export const APINonAuth = axios.create({
-    baseURL: "http://localhost:3333/api"
+    baseURL: process.env.REACT_APP_IP_ACCESS,
 })
 
 export default API;

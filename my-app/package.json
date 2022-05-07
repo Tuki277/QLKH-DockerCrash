@@ -13,6 +13,9 @@
     "@types/react": "^17.0.40",
     "@types/react-dom": "^17.0.13",
     "axios": "^0.26.1",
+    "dotenv": "^16.0.0",
+    "env-cmd": "^10.1.0",
+    "fs": "^0.0.1-security",
     "moment": "^2.29.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
@@ -26,8 +29,9 @@
     "yup": "^0.32.11"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start": "env-cmd -f .env.development react-scripts start",
+    "product": "env-cmd -f .env.production react-scripts start",
+    "build": "env-cmd -f .env.production react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -50,6 +54,7 @@
     ]
   },
   "devDependencies": {
+    "@types/dotenv": "^8.2.0",
     "@types/moment": "^2.13.0",
     "autoprefixer": "^10.4.4",
     "postcss": "^8.4.12",

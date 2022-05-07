@@ -9,7 +9,7 @@ import {
 import API from "../../Utils/API";
 
 export const getAllProduct = createAsyncThunk("Product/getAll", async () => {
-  const res = await API.get<IResponseProduct<IProductDocument>>("/product");
+  const res = await API.get("/product");
   return res.data;
 });
 
@@ -80,7 +80,7 @@ const productSlice = createSlice({
     builder.addCase(finishProduct.fulfilled, (state, action) => {});
     builder.addCase(rejectProduct.fulfilled, (state, action) => {});
     builder.addCase(deliveredProduct.fulfilled, (state, action) => {});
-    builder.addCase(getAllProduct.fulfilled, (state, action: any) => {
+    builder.addCase(getAllProduct.fulfilled, (state, action) => {
       state.product = action.payload;
     });
     builder.addCase(filterProduct.fulfilled, (state, action) => {

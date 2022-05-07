@@ -20,6 +20,7 @@ import {
 import { RootState } from "../redux/store";
 import { processStatus } from "../Utils/Function";
 import Add from "./Add";
+import { actionNumber, actionTitle } from "../Utils/staticVariable";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -88,7 +89,7 @@ const Home = () => {
           <div className="flex justify-between">
             <div className="flex">
               <div className="logo w-48 bg-blue-400 h-16 text-center">
-                <p className="font-bold text-5xl pt-1 text-white">QLKH</p>
+                <p className="font-bold text-5xl pt-1 text-white">{ process.env.IP_ACCESS }</p>
               </div>
 
               <div>
@@ -281,7 +282,7 @@ const Home = () => {
         <ModalDetail /> 
       : <div className="w3-animate-opacity"></div>}
       {ModalConfirmStatusForDelete && idState ? (
-        <ModalConfirm title="xóa" id={idState} x={2} />
+        <ModalConfirm title={actionTitle.Delete} id={idState} x={actionNumber.Delete} />
       ) : (
         ""
       )}

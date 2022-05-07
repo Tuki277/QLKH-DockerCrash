@@ -8,6 +8,7 @@ import { RootState } from "../redux/store";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
+import { button, actionNumber, actionTitle } from '../Utils/staticVariable'
 
 const Add = (props: { id?: string }) => {
 
@@ -56,17 +57,6 @@ const Add = (props: { id?: string }) => {
     if (!ModalConfirmStatus && props.id) {
       if (productDetail) {
         const data: any = productDetail?.DataResponse?.Object;
-        // setModel({
-        //   NameProduct: data[0].NameProduct,
-        //   AddressReceive: data[0].AddressReceive,
-        //   Note: data[0].Note,
-        //   PhoneNumberReceive: data[0].PhoneNumberReceive,
-        //   PhoneNumberSend: data[0].PhoneNumberSend,
-        //   UserReceive: data[0].UserReceive,
-        //   UserSend: data[0].UserSend,
-        //   UserSendAddress: data[0].UserSendAddress,
-        //   Weight: data[0].Weight,
-        // })
         setValue("NameProduct", data[0].NameProduct)
         setValue("AddressReceive", data[0].AddressReceive)
         setValue("Note", data[0].Note)
@@ -90,24 +80,11 @@ const Add = (props: { id?: string }) => {
     }
   }, [props.id !== null])
 
-  // const updatedModel = (event: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>) => {
-  //   setModel({
-  //     ...model,
-  //     [event.target.name]: event.target.value,
-  //   });
-  // };
-
-  // const onSubmit = async (event: ChangeEvent<HTMLFormElement>) => {
-  //   event.preventDefault();
-  //   setTitle(props.id ? "cập nhật" : "thêm")
-  //   dispatch(toggleShowModalConfirm())
-  // };
-
   const onSubmit: SubmitHandler<IProductDocumentPost> = (data) => {
     setModel({
       ...data,
     })
-    setTitle(props.id ? "cập nhật" : "thêm")
+    setTitle(props.id ? actionTitle.Update : actionTitle.Add)
     dispatch(toggleShowModalConfirm())
   }
 
@@ -122,39 +99,23 @@ const Add = (props: { id?: string }) => {
               height: "calc(100vh - 4rem)",
             }}
           >
-            {/* <pre>{JSON.stringify(model, undefined, 2)}</pre> */}
             <div className="mt-16 grid grid-cols-2 gap-6 px-10">
               <div>
-                {/* <label>Tên bưu phẩm</label> */}
                 <input
                   placeholder="Tên bưu phẩm"
-                  // name="NameProduct"
                   type="text"
                   className="border-b-2 px-2 text-black focus:outline-0 w-full"
-                  // onChange={(event: ChangeEvent<HTMLInputElement>) =>
-                  //   updatedModel(event)
-                  // }
                   defaultValue={model.NameProduct}
-                  // value={model.NameProduct}
                   {...register("NameProduct")}
-                  // onChange={(event: ChangeEvent<HTMLInputElement>) =>
-                  //   updatedModel(event)
-                  // }
                 />
                 {errors.NameProduct && <span className="text-red-600 mt-1 ml-1 errorIcon">Bắt buộc nhập tên hàng hóa</span>}
               </div>
 
               <div>
-                {/* <label>Cân nặng (kg)</label> */}
                 <input
                   placeholder="Cân nặng"
-                  // name="Weight"
                   type="number"
                   className="border-b-2 px-2 text-black focus:outline-0 w-full"
-                  // onChange={(event: ChangeEvent<HTMLInputElement>) =>
-                  //   updatedModel(event)
-                  // }
-                  // value={model.Weight}
                   step="any"
                   defaultValue={model.Weight}
                   {...register("Weight")}
@@ -162,16 +123,10 @@ const Add = (props: { id?: string }) => {
               </div>
 
               <div>
-                {/* <label>Người nhận</label> */}
                 <input
                   placeholder="Người nhận"
-                  // name="UserReceive"
                   type="text"
                   className="border-b-2 px-2 text-black focus:outline-0 w-full"
-                  // onChange={(event: ChangeEvent<HTMLInputElement>) =>
-                  //   updatedModel(event)
-                  // }
-                  // value={model.UserReceive}
                   defaultValue={model.UserReceive}
                   {...register("UserReceive")}
                 />
@@ -179,16 +134,10 @@ const Add = (props: { id?: string }) => {
               </div>
 
               <div>
-                {/* <label>Người gửi</label> */}
                 <input
                   placeholder="Người gửi"
-                  // name="UserSend"
                   type="text"
                   className="border-b-2 px-2 text-black focus:outline-0 w-full"
-                  // onChange={(event: ChangeEvent<HTMLInputElement>) =>
-                  //   updatedModel(event)
-                  // }
-                  // value={model.UserSend}
                   defaultValue={model.UserSend}
                   {...register("UserSend")}
                 />
@@ -196,32 +145,21 @@ const Add = (props: { id?: string }) => {
               </div>
 
               <div>
-                {/* <label>Số điện thoại người gửi</label> */}
                 <input
                   placeholder="Số điện thoại người nhận"
-                  // name="PhoneNumberReceive"
                   type="text"
                   className="border-b-2 px-2 text-black focus:outline-0 w-full"
-                  // onChange={(event: ChangeEvent<HTMLInputElement>) =>
-                  //   updatedModel(event)
-                  // }
-                  // value={model.PhoneNumberReceive}
                   defaultValue={model.PhoneNumberReceive}
                   {...register("PhoneNumberReceive")}
                 />{errors.PhoneNumberReceive && <span className="text-red-600 mt-1 ml-1 errorIcon">Bắt buộc nhập số điện thoại người nhận</span>}
               </div>
 
               <div>
-                {/* <label>Số điện thoại nguời nhận</label> */}
                 <input
                   placeholder="Số điện thoại người gửi"
                   // name="PhoneNumberSend"
                   type="text"
                   className="border-b-2 px-2 text-black focus:outline-0 w-full"
-                  // onChange={(event: ChangeEvent<HTMLInputElement>) =>
-                  //   updatedModel(event)
-                  // }
-                  // value={model.PhoneNumberSend}
                   defaultValue={model.PhoneNumberSend}
                   {...register("PhoneNumberSend")}
                 />
@@ -229,16 +167,10 @@ const Add = (props: { id?: string }) => {
               </div>
 
               <div>
-                {/* <label>Nơi nhận</label> */}
                 <input
                   placeholder="Nơi nhận"
-                  // name="AddressReceive"
                   type="text"
                   className="border-b-2 px-2 text-black focus:outline-0 w-full"
-                  // onChange={(event: ChangeEvent<HTMLInputElement>) =>
-                  //   updatedModel(event)
-                  // }
-                  // value={model.AddressReceive}
                   defaultValue={model.AddressReceive}
                   {...register("AddressReceive")}
                 />
@@ -246,16 +178,11 @@ const Add = (props: { id?: string }) => {
               </div>
 
               <div>
-                {/* <label>Nơi gửi</label> */}
                 <input
                   placeholder="Nơi gửi"
                   // name="UserSendAddress"
                   type="text"
                   className="border-b-2 px-2 text-black focus:outline-0 w-full"
-                  // onChange={(event: ChangeEvent<HTMLInputElement>) =>
-                  //   updatedModel(event)
-                  // }
-                  // value={model.UserSendAddress}
                   defaultValue={model.UserSendAddress}
                   {...register("UserSendAddress")}
                 />
@@ -266,12 +193,7 @@ const Add = (props: { id?: string }) => {
             <div className="mx-10 mt-10">
               <textarea
                 placeholder="Ghi chú"
-                // name="Note"
                 className="p-2 w-full border-2 resize-y rounded-md"
-                // onChange={(event: ChangeEvent<HTMLTextAreaElement>) =>
-                //   updatedModel(event)
-                // }
-                // value={model.Note}
                 defaultValue={model.Note}
                 {...register("Note")}
               ></textarea>
@@ -283,7 +205,7 @@ const Add = (props: { id?: string }) => {
                   onClick={() => closeModalCreateButton()}
                   className="border-[1px] rounded-md p-2 ml-2 hover:bg-gray-200"
                 >
-                  Đóng
+                  { button.Close }
                 </button>
               </div>
 
@@ -292,7 +214,7 @@ const Add = (props: { id?: string }) => {
                   type="submit"
                   className="border-[1px] rounded-md p-2 ml-2 hover:bg-gray-200"
                 >
-                  { props.id ? "Cập nhật" : "Thêm" }
+                  { props.id ? button.Update : button.Add }
                 </button>
               </div>
             </div>
@@ -303,7 +225,7 @@ const Add = (props: { id?: string }) => {
       { ModalConfirmStatus ? <ModalConfirm 
         title={title}
         model={model}
-        x={1}
+        x={actionNumber.Add}
         id={props.id}
       /> : "" }
     </Fragment>

@@ -1,7 +1,8 @@
 export default {
     host: "0.0.0.0",
     port: 3333,
-    url: "mongodb+srv://Tuki277:HoangHuy01@cluster0.4jllt.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
+    url: "mongodb://localhost:27017/",
+    // url: "mongodb+srv://Tuki277:HoangHuy01@cluster0.4jllt.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
     saltWorkFactor: 10,
     accessTokenTtl: "1y",
     privateKey: `-----BEGIN RSA PRIVATE KEY-----

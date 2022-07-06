@@ -9,6 +9,7 @@ const authentication = async (req: Request, res: Response, next: NextFunction) =
     }
 
     const { decoded, expired } = decode(accessToken)
+    console.log("🚀 ~ file: authenticationUser.middleware.ts ~ line 12 ~ authentication ~ decoded", decoded)
 
     if (decoded) {
         // @ts-ignore

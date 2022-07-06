@@ -22,12 +22,15 @@ export const validatePassword = async ({
   Password: string;
 }): Promise<boolean | UserDocument> => {
   const user = await User.findOne({ Username });
+  console.log("🚀 ~ file: user.service.ts ~ line 25 ~ user", user)
+  console.log("password parameter == ", Password)
 
   if (user == null) {
     return false;
   }
 
   const isValid = await user.comparePassword(Password);
+  console.log("🚀 ~ file: user.service.ts ~ line 33 ~ isValid", isValid)
 
   if (!isValid) {
     return false;

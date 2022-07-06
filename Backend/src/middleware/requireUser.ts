@@ -8,6 +8,7 @@ const requiresUser = async (
 ) => {
   // @ts-ignore
   const user = req.user
+  console.log("🚀 ~ file: requireUser.ts ~ line 11 ~ user", user)
 
   if (!user) {
     let data: IResponse<boolean> = {
